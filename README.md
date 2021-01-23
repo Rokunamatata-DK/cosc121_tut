@@ -1,1 +1,1 @@
-# cosc121_tut BY Derek Zou
+# COSC121_tut BY Derek Zou
