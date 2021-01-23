@@ -1,0 +1,7 @@
+month day hour mean_temp
+1:8 13 9 6.6C
+2:8 13 10 7.5F
+3:8 13 11 9.2F
+#this data belond to derek
+
+asdasd
