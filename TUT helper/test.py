@@ -36,6 +36,8 @@ class Session:
             .format(self.start.strftime("%x %X"), self.stop.strftime("%x %X"), \
                 self.hours.__str__(), self.break_time.__str__(), self.payment.__str__())
     
+    
+
     def end_time(self,end):
         self.stop=end
         mins = (self.stop-self.start).seconds/60
@@ -85,28 +87,17 @@ def main():
 
 
 
-x = datetime.datetime.now()
-print(x.strftime("%x %X"))
 
-
-y = datetime.datetime(2021, 1, 26, 0,00,00 )
-print(y.strftime("%x %X"))
-
-
-gap =x-y
-hours= gap.seconds/60/60
-money = hours * 35
-
-print("gap is",gap.seconds/60/60)
-print(money)
 
 # return false when fail, list of time when success
 def check_is_time(ls_time):
     """check if the input is valid time data"""
     result = []
+    if len(ls_time)==2:
+        ls_time.append("00")
     # if len if list is less then 3, fail
     if len(ls_time) != 3:
-            print("error: not 3 number")
+            print("error: must input 2 or 3 number separated by ':' ")
             return False
     else:
         for t in ls_time:
@@ -130,8 +121,8 @@ def check_is_time(ls_time):
     return result
 
 # return false when fail, list of time when success
-def enter_time(messge):
-    print(messge,"\nEnter q or quit to quit")
+def enter_time(message):
+    print(message,"\nq or quit to quit")
     ls_time = False
     # limit time of errer
     error_limiter = 0
@@ -147,18 +138,35 @@ def enter_time(messge):
 
 #3 item list to datetime with default date
 def make_datetime(time,year=1999,month=1,day=1):
-    return datetime.datetime(year, month, day, time[0], time[1], time[2])
+    if time == False:
+        return False
+    else:
+        return datetime.datetime(year, month, day, time[0], time[1], time[2])
 
-# make a log of tutor session
-def make_log():
+# make a log of tutor session, return T/F
+def make_log(list_sessions):
+    
     start = make_datetime(enter_time("Enter a start time"))
-    new_log= Session(start)
     end = make_datetime(enter_time("Enter end time"))
-    new_log.end_time(end)
-    print(new_log.__str__())
+    # if both return valid
+    if start!= False and end != False:
+        # init new session class
+        new_log= Session(start)
+        # end session
+        new_log.end_time(end)
+        # return value
+        list_sessions.append(new_log)
+        return True
+    else:
+        print("progress canceled, no data added")
+        return False
+    # print(new_log.__str__())
+  
+    
 
-
-make_log()
+list_session=[]
+make_log(list_session)
+print (list_session[0].payment)
 
 # time = enter_time("Enter start time")
 
