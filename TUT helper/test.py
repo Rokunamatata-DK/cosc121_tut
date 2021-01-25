@@ -19,7 +19,7 @@ def get_user_choice():
     return input("What would you like to do? ")
 
 
-class sessions:
+class Session:
     def __init__(self, start):
         self.start = start
         self.stop= ""
@@ -30,11 +30,17 @@ class sessions:
         self.paid= False
         self.break_time = 0
 
+    def __str__(self):
+        return "this Session started at: {}, ended at: {}, hours number is: {} \
+            \nwith total break time of: {}, payment will be: {}"\
+            .format(self.start.strftime("%x %X"), self.stop.strftime("%x %X"), \
+                self.hours.__str__(), self.break_time.__str__(), self.payment.__str__())
+    
     def end_time(self,end):
         self.stop=end
-        mins = (self.start-self.stop).seconds/60
+        mins = (self.stop-self.start).seconds/60
         self.hours = round(mins/60,1) - self.break_time
-        self.payment = 35 * hours
+        self.payment = round( 35 * self.hours,1)
 
     def break_start(self,start):
         self.breaks_mark=start
@@ -139,16 +145,26 @@ def enter_time(messge):
     # pass the check and return data
     return ls_time
 
-
-# make a log of tutor session
-def make_log():
-
-time = enter_time("Enter start time")
-
+#3 item list to datetime with default date
 def make_datetime(time,year=1999,month=1,day=1):
     return datetime.datetime(year, month, day, time[0], time[1], time[2])
 
-start = make_datetime(time)
-end = make_datetime(enter_time("Enter end time"))
-print (end - start)
+# make a log of tutor session
+def make_log():
+    start = make_datetime(enter_time("Enter a start time"))
+    new_log= Session(start)
+    end = make_datetime(enter_time("Enter end time"))
+    new_log.end_time(end)
+    print(new_log.__str__())
+
+
+make_log()
+
+# time = enter_time("Enter start time")
+
+
+
+# start = make_datetime(time)
+# end = make_datetime(enter_time("Enter end time"))
+# print (end - start)
 
