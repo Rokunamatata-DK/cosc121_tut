@@ -82,50 +82,28 @@ def get_user_choice():
     
     return input("What would you like to do? ")
     
+# load all discs from datafile into a list
+def load_dicts(dicts_session):
+    file = open('logs.pydata', 'rb')
+    data = pickle.load(file)
+    file.close()
+    for dic in data:
+        dicts_session.append(dic)
+#print all logs
 def show_logs():
-    # Shows the names of everyone who is already in the list.
-    print("\nHere are the people I know.\n")
-    for name in names:
-        print(name.title())
-        
-def get_new_name():
-    # Asks the user for a new name, and stores the name if we don't already
-    #  know about this person.
-    new_name = input("\nPlease tell me this person's name: ")
-    if new_name in names:
-        print("\n%s is an old friend! Thank you, though." % new_name.title())
-    else:
-        names.append(new_name)
-        print("\nI'm so happy to know %s!\n" % new_name.title())
+    # Shows all session in logs.
+    list_session = []
+    load_dicts(list_session)
+    index=1
+    for dic in list_session:
+        print (index,"Start: '{}' End: '{}' Fee: '${}'".format(\
+            dic["start"],dic["stop"],dic["payment"]))
+        index+=1
+
 
 
 ### MAIN PROGRAM ###
 # This program asks the user for some time(date), and stores them.
-
-# Make an empty list to store new animals in.
-# sessions = []
-
-# # Create a loop that lets users store new new.
-# new_time = ''
-# while new_time != 'quit':
-#     print("\nPlease tell me a new animal to remember.")
-#     new_time = input("Enter 'quit' to quit: ")
-#     if new_time != 'quit':
-       
-#         sessions.append(new_time)
-
-# # Try to save the animals to the file 'animals.pydata'.
-# try:
-#     file_object = open('animals.pydata', 'wb')
-#     pickle.dump(sessions, file_object)
-#     file_object.close()
-#     print("\nI will remember the following animals: ")
-#     for animal in sessions:
-#         print(animal)
-# except Exception as e:
-#     print(e)
-#     print("\nI couldn't figure out how to store the animals. Sorry.")
-
 
 # Set up a loop where users can choose what they'd like to do.
 def main():
@@ -141,9 +119,14 @@ def main():
         # Respond to the user's choice.
         display_title_bar()
         if choice == '1':
-           pass
+            show_logs()
+            pass
         # log new record
         elif choice == '2':
+            
+            pass
+         elif choice == '3':
+                
             pass
         elif choice in ['q','quit']:
             print("\nBye human")

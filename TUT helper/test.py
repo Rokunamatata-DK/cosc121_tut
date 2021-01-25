@@ -1,22 +1,6 @@
 import datetime
 import time
-
-def display_title_bar():
-    # Clears the terminal screen, and displays a title bar.
-    # os.system('clear')
-              
-    print("\t***********************************************")
-    print("\t***  Hello -- Tutor helper -- Manual logger ***")
-    print("\t***********************************************")
-    
-def get_user_choice():
-    # Let users know what they can do.
-    print("\n[1] See a list of logs.")
-    print("[2] log a new one.")
-    print("[3] manage logs")
-    print("[q] Quit.")
-    
-    return input("What would you like to do? ")
+import pickle
 
 
 class Session:
@@ -36,7 +20,11 @@ class Session:
             .format(self.start.strftime("%x %X"), self.stop.strftime("%x %X"), \
                 self.hours.__str__(), self.break_time.__str__(), self.payment.__str__())
     
-    
+    def to_dict(self):
+        dict_session =  {"start":self.start, "stop":self.stop, "breaks":self.breaks,\
+             "hours":self.hours, "payment":self.payment, "paid":self.paid,\
+                  "break_time": self.break_time }
+        return dict_session
 
     def end_time(self,end):
         self.stop=end
@@ -155,18 +143,42 @@ def make_log(list_sessions):
         # end session
         new_log.end_time(end)
         # return value
-        list_sessions.append(new_log)
+        list_sessions.append(new_log.to_dict())
         return True
     else:
         print("progress canceled, no data added")
         return False
     # print(new_log.__str__())
   
-    
+def load_dicts(dicts_session):
+    file = open('logs.pydata', 'rb')
+    data = pickle.load(file)
+    file.close()
+    for dic in data:
+        dicts_session.append(dic)
 
-list_session=[]
+
+list_session = []
+
+#################override switch##############
+load_dicts(list_session)
+#################override switch##############
+
+
+
+
+
 make_log(list_session)
-print (list_session[0].payment)
+# print (list_session[0].to_dict().__str__())
+
+
+
+file_object = open('logs.pydata', 'wb+')
+pickle.dump(list_session, file_object)
+file_object.close()
+print("\nI will remember the following animals: ")
+for session in list_session:
+    print(session.__str__())
 
 # time = enter_time("Enter start time")
 
@@ -176,3 +188,5 @@ print (list_session[0].payment)
 # end = make_datetime(enter_time("Enter end time"))
 # print (end - start)
 
+a={12:12,2:2}
+print(a)
