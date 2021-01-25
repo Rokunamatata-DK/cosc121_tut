@@ -11,6 +11,7 @@ while new_animal != 'quit':
     print("\nPlease tell me a new animal to remember.")
     new_animal = input("Enter 'quit' to quit: ")
     if new_animal != 'quit':
+       
         animals.append(new_animal)
 
 # Try to save the animals to the file 'animals.pydata'.

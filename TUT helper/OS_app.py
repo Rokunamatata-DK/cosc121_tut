@@ -41,6 +41,7 @@ def get_new_name():
 ### MAIN PROGRAM ###
 
 # Set up a loop where users can choose what they'd like to do.
+
 names = []
 
 choice = ''
@@ -59,3 +60,4 @@ while choice != 'q':
         print("\nThanks for playing. Bye.")
     else:
         print("\nI didn't understand that choice.\n")
+        
