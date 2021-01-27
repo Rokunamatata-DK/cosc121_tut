@@ -1,6 +1,6 @@
-import os
 import pickle
-
+from Record import Session
+import enter_log_module
 
 
 
@@ -53,7 +53,7 @@ def enter_time(messge):
 
 
 #'animals.pydata'
-def open_file(filename):
+def open_file(filename, sum= False):
     file = open(filename, 'rb')
 
     data = pickle.load(file)
@@ -92,13 +92,17 @@ def load_dicts(dicts_session):
 #print all logs
 def show_logs():
     # Shows all session in logs.
+    sums=0
     list_session = []
     load_dicts(list_session)
     index=1
     for dic in list_session:
         print (index,"Start: '{}' End: '{}' Fee: '${}'".format(\
             dic["start"],dic["stop"],dic["payment"]))
+        sums+=dic['payment']
         index+=1
+    
+    print("==============================================================\n\tTotal Fee = \t$", sums)
 
 
 
@@ -112,10 +116,10 @@ def main():
     choice = ''
     display_title_bar()
 
-    while choice not in ['q','quit']:    
-        
+    while choice not in ['q','quit']:
+
         choice = get_user_choice()
-        
+
         # Respond to the user's choice.
         display_title_bar()
         if choice == '1':
@@ -124,9 +128,10 @@ def main():
         # log new record
         elif choice == '2':
             
+            enter_log_module.input_new_log()
             pass
-         elif choice == '3':
-                
+        elif choice == '3':
+
             pass
         elif choice in ['q','quit']:
             print("\nBye human")

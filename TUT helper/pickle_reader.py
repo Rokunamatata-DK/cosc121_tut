@@ -1,18 +1,5 @@
-import os
+# import os
 import pickle
-
-# file = open('logs.pydata', 'rb')
-
-# data = pickle.load(file)
-
-# print(data)
-
-# file.close()
-
-# for line in data:
-#     dic= line
-#     print("\nline: =",line)
-
 
 def load_dicts(dicts_session):
     file = open('logs.pydata', 'rb')
@@ -27,5 +14,11 @@ load_dicts(dicts_session)
 
 print(dicts_session,"\n")
 
+sums=0
+
 for dic in dicts_session:
     print("\n dic:::::",dic)
+    sums += dic['payment']
+
+
+print("sum is : ",sums)

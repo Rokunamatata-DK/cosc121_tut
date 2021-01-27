@@ -1,7 +1,8 @@
 import datetime
 
 
-class sessions:
+
+class Session:
     def __init__(self, start):
         self.start = start
         self.stop= ""
@@ -12,11 +13,23 @@ class sessions:
         self.paid= False
         self.break_time = 0
 
+    def __str__(self):
+        return "this Session started at: {}, ended at: {}, hours number is: {} \
+            \nwith total break time of: {}, payment will be: {}"\
+            .format(self.start.strftime("%x %X"), self.stop.strftime("%x %X"), \
+                self.hours.__str__(), self.break_time.__str__(), self.payment.__str__())
+    
+    def to_dict(self):
+        dict_session =  {"start":self.start, "stop":self.stop, "breaks":self.breaks,\
+             "hours":self.hours, "payment":self.payment, "paid":self.paid,\
+                  "break_time": self.break_time }
+        return dict_session
+
     def end_time(self,end):
         self.stop=end
-        mins = (self.start-self.stop).seconds/60
+        mins = (self.stop-self.start).seconds/60
         self.hours = round(mins/60,1) - self.break_time
-        self.payment = 35 * hours
+        self.payment = round( 35 * self.hours,1)
 
     def break_start(self,start):
         self.breaks_mark=start
